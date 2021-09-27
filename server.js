@@ -8,7 +8,6 @@ dotenv.config({ path: "./.env" });
 
 //importing files
 const indexFile = require("./api/index.js");
-const { data } = require("./api/graphQLQuery");
 //initialising server
 const app = express();
 
