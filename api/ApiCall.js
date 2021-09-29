@@ -19,15 +19,15 @@ const allAPIs = async () => {
 	return allAPIs;
 };
 //random APIs
-const randomAPIs = async () => {
+const randomAPI = async () => {
 	const url = await axios(`https://api.publicapis.org/random`);
-	const randomAPIs = await url.data;
-	return randomAPIs;
+	const randomAPI = await url.data;
+	return randomAPI;
 };
 
 module.exports = {
 	categories,
 	userQuery,
 	allAPIs,
-	randomAPIs,
+	randomAPI,
 };
