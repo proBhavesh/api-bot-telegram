@@ -18,8 +18,6 @@ app.use(cors());
 indexFile;
 
 app.get("/", async (req, res) => {
-    // data().then((resp) => res.send(JSON.stringify(resp)));
-    // .then((data) => res.send(data));
     res.send("Working");
 });
 // starting the server

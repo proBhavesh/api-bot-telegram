@@ -7,14 +7,11 @@ if (token === undefined) {
 	throw new Error("BOT_TOKEN must be provided!");
 }
 const { categories, allAPIs, randomAPI, userQuery } = require("./ApiCall.js");
+
 //bot start response;
-// randomAPI().then((res) => {
-// 	console.log(res);
-// });
-// The Principles of Psychology
-bot.start((ctx) =>
-	randomAPI().then((res) => {
-		ctx.reply(
+bot.start((ctx) => {
+	try {
+		return ctx.reply(
 			`
 			<strong></strong>
 		🚀<strong>Welcome to the bot, here choose between 500+ APIs in 40+ categories</strong> &#10;
@@ -23,32 +20,32 @@ bot.start((ctx) =>
 			`,
 			{ parse_mode: "HTML" }
 		);
-	})
-);
-
-bot.command("price", async (ctx) => {});
+	} catch (err) {
+		return ctx.reply("something went wrong");
+	}
+});
 
 //send categories
 bot.command("categories", async (ctx) => {
 	try {
-		categories().then((res) => {
+		return categories().then((res) => {
 			var categs = "";
 			for (let i = 0; i < res.length; i++) {
 				categs += "🚀" + res[i] + "\n\n";
 			}
 			console.log("This is cate");
-			ctx.reply(categs);
+			return ctx.reply(categs);
 		});
 	} catch (err) {
 		ctx.reply("something went wrong");
-		console.log(err);
+		return console.log(err);
 	}
 });
 
 //send random API
 bot.command("random", async (ctx) => {
 	try {
-		randomAPI().then((res) => {
+		return randomAPI().then((res) => {
 			ctx.reply(
 				`
 		🚀<strong>Name - ${res.entries[0].API}</strong> &#10;
@@ -60,17 +57,16 @@ bot.command("random", async (ctx) => {
 			);
 		});
 	} catch (err) {
-		ctx.reply("something went wrong");
+		return ctx.reply("something went wrong");
 	}
 });
 
 //test message
 bot.hears("hi", (ctx) => {
-	ctx.reply("<strong>Working Nice</strong>", { parse_mode: "HTML" });
+	return ctx.reply("<strong>Working Nice</strong>", { parse_mode: "HTML" });
 });
 
 //inline quiries
-
 bot.on("inline_query", async (ctx) => {
 	try {
 		if (!ctx.inlineQuery.query) {
